@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content%}
+<div class="columns is-multiline">
+  <div class="column is-12">
+  <h1 class="title is-2">Todos</h1>
+  </div>
+
+  <hr>
+
+  <div class="column is-12">
+    {% for todo in todos %}
+    <div class="box">
+    <h1 class="title is-4">{{todo.title}} <a href="{% url 'todo' todo.id %}">View details</a></h1>
+    <p>STATUS: {{todo.is_done}}</p>
+    <p style="font-weight:bold;">{{todo.date_added}}</p>
+    </div>
+    {% empty %}
+    <p>No todos yet...</p>
+    {% endfor %}
+  </div>
+    <div class="column is-12">
+  <form method="post" class="box">
+    {% csrf_token %}
+
+    {{form.as_p}}
+
+    <div class="field">
+      <div class="control">
+        <button class="button is-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+    </div>
+</div>
+{% endblock %}
